@@ -1,28 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Recipes</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <header>
-    <h1>My Recipes</h1>
-    <input id="search" type="text" placeholder="Search recipes..." />
-    <button id="modeToggle">Dark</button>
-  </header>
 
-  <main id="list"></main>
+  <h1>My Recipes</h1>
 
-  <section id="addBox">
-    <h2>Add Recipe</h2>
-    <input id="title" type="text" placeholder="Title" />
+  <div class="topBar">
+    <input id="search" placeholder="Search recipes..." />
+    <button id="modeToggle">Light</button>
+  </div>
+
+  <hr />
+
+  <h2>Add Recipe</h2>
+
+  <div class="form">
+    <input id="title" placeholder="Title" />
+
     <textarea id="steps" placeholder="Steps"></textarea>
-    <label for="photo">Add photo (optional)</label>
-    <input id="photo" type="file" accept="image/*" />
+
+    <label for="photo" style="margin-top:10px; display:block;">Add photo (optional)</label>
+    <input id="photo" type="file" accept="image/*" style="margin-bottom:15px;" />
+
     <button id="addBtn">Save</button>
-  </section>
+  </div>
+
+  <h2>Saved Recipes</h2>
+  <div id="list"></div>
 
   <script src="script.js"></script>
 </body>
