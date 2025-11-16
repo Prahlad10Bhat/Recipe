@@ -208,3 +208,23 @@ body.lightMode .deleteBtn {
     width: 100%;
   }
 }
+/* image viewer overlay */
+.viewer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.viewer img {
+  max-width: 90vw;
+  max-height: 90vh;
+  border-radius: 12px;
+}
