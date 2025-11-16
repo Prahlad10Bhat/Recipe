@@ -1,8 +1,8 @@
 const list = document.getElementById("list");
 const search = document.getElementById("search");
 const addBtn = document.getElementById("addBtn");
+const photoInput = document.getElementById("photo");
 
-// load recipes
 let recipes = JSON.parse(localStorage.getItem("recipes") || "[]");
 
 // dark mode
@@ -26,20 +26,24 @@ modeToggle.onclick = () => {
   updateModeBtn();
 };
 
-// save to storage
+// save
 function save() {
   localStorage.setItem("recipes", JSON.stringify(recipes));
 }
 
-// show recipes
+// show
 function render(items = recipes) {
   list.innerHTML = "";
   items.forEach((r, i) => {
     let box = document.createElement("div");
     box.className = "recipe";
+
+    let imgTag = r.photo ? `<img src="${r.photo}" class="recipeImg" />` : "";
+
     box.innerHTML = `
       <h3>${r.title}</h3>
       <p>${r.steps}</p>
+      ${imgTag}
       <button class="delBtn" data-id="${i}">Delete</button>
     `;
     list.appendChild(box);
@@ -55,18 +59,40 @@ function render(items = recipes) {
   });
 }
 
-// add new recipe
+// add recipe
 addBtn.onclick = () => {
   const title = document.getElementById("title").value.trim();
   const steps = document.getElementById("steps").value.trim();
-  if (!title || !steps) return;
 
-  recipes.push({ title, steps });
-  save();
-  render();
+  if (!title) return;
+
+  const file = photoInput.files[0];
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      recipes.push({
+        title,
+        steps,
+        photo: reader.result
+      });
+      save();
+      render();
+    };
+    reader.readAsDataURL(file);
+  } else {
+    recipes.push({
+      title,
+      steps,
+      photo: null
+    });
+    save();
+    render();
+  }
 
   document.getElementById("title").value = "";
   document.getElementById("steps").value = "";
+  photoInput.value = "";
 };
 
 // search
@@ -76,5 +102,5 @@ search.oninput = () => {
   render(filtered);
 };
 
-// initial load
+// load
 render();
