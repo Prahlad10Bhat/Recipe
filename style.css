@@ -1,107 +1,210 @@
-/* Base layout */
+/* page container */
+:root {
+  --max-w: 900px;
+  --card-bg: #fff;
+  --muted: #666;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background: #f5f5f5;
-  color: #222;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
   margin: 0;
-  padding: 20px;
+  background: #f6f6f6;
+  color: #111;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* center content and constrain width */
+body > * {
+  max-width: var(--max-w);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 18px;
+  padding-right: 18px;
 }
 
 h1 {
-  margin-bottom: 15px;
+  text-align: center;
+  margin: 24px 0 10px;
+  font-size: 32px;
+  letter-spacing: -0.5px;
 }
 
 .topBar {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 12px;
+  align-items: center;
+  justify-content: center; /* keep search centered under header */
+  margin-bottom: 18px;
 }
 
+/* search grows, button fixed */
 #search {
-  flex: 1;
-  padding: 10px;
+  flex: 1 1 600px;
+  max-width: 700px;
+  padding: 12px 14px;
   font-size: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 8px;
+  border: 1px solid #d0d0d0;
+  background: white;
+  box-sizing: border-box;
 }
 
-button {
-  padding: 10px 15px;
-  background: #444;
-  color: white;
+#modeToggle {
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #333;
+  color: #fff;
   border: none;
-  border-radius: 6px;
   cursor: pointer;
 }
 
-button:hover {
-  background: #333;
+/* form area */
+h2 {
+  margin-top: 28px;
+  margin-bottom: 12px;
 }
 
 .form {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-width: 400px;
-  margin-bottom: 25px;
+  max-width: 680px;
+  margin-bottom: 28px;
 }
 
-input, textarea {
-  padding: 10px;
+.form input[type="text"],
+.form textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #d0d0d0;
   font-size: 15px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
+  box-sizing: border-box;
+  background: white;
+  color: inherit;
 }
 
 #steps {
-  height: 80px;
+  min-height: 86px;
   resize: vertical;
 }
 
+/* file input sits inline label then file control */
+.form label[for="photo"] {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+#photo {
+  padding: 6px 0;
+}
+
+/* Save button aligns left under fields */
+#addBtn {
+  width: fit-content;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+/* recipes list */
 #list {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  max-width: 600px;
+  gap: 18px;
+  padding-bottom: 40px;
 }
 
-/* Recipe Cards */
+/* card layout: text left, image right */
 .card {
-  padding: 15px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  background: var(--card-bg);
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(12,12,12,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.card-left {
+  flex: 1;
+}
+
+.card-right {
+  width: 220px;
+  flex: 0 0 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .card img {
-  width: 100%;
-  max-width: 260px;
+  max-width: 100%;
+  border-radius: 10px;
+  display: block;
+}
+
+/* card text */
+.card h3 {
+  margin: 0 0 8px 0;
+  font-size: 18px;
+}
+
+.card .steps {
+  margin: 0 0 12px 0;
+  color: #333;
+}
+
+/* delete button */
+.deleteBtn {
+  padding: 8px 12px;
+  background: #d9534f;
+  color: #fff;
+  border: none;
   border-radius: 8px;
-  margin-top: 10px;
+  cursor: pointer;
 }
 
-/* Dark mode */
+/* dark theme (your JS toggles body.lightMode) */
 body.lightMode {
-  background: #111;
-  color: white;
+  background: #0f0f0f;
+  color: #eee;
 }
 
-body.lightMode input,
-body.lightMode textarea {
-  background: #222;
-  color: white;
-  border: 1px solid #555;
+body.lightMode #search,
+body.lightMode .form input,
+body.lightMode .form textarea {
+  background: #151515;
+  color: #eee;
+  border: 1px solid #333;
 }
 
 body.lightMode .card {
-  background: #222;
-  color: white;
+  background: #151515;
+  border: 1px solid #222;
+  box-shadow: none;
 }
 
-body.lightMode button {
-  background: #666;
+body.lightMode #modeToggle {
+  background: #ddd;
+  color: #000;
 }
 
-body.lightMode button:hover {
-  background: #555;
+body.lightMode .deleteBtn {
+  background: #b94a45;
+}
+
+/* responsive */
+@media (max-width: 760px) {
+  .card {
+    flex-direction: column;
+  }
+  .card-right {
+    width: 100%;
+  }
 }
