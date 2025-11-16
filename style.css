@@ -86,3 +86,8 @@ body.dark #modeToggle {
   margin-top: 10px;
   background: #c33;
 }
+.recipeImg {
+  width: 100%;
+  margin-top: 10px;
+  border-radius: 6px;
+}
