@@ -55,6 +55,33 @@ button {
   border-radius: 6px;
   cursor: pointer;
 }
+body.dark {
+  background: #111;
+  color: #eee;
+}
+
+body.dark header,
+body.dark #addBox,
+body.dark .recipe {
+  background: #1a1a1a;
+  border-color: #333;
+}
+
+#modeToggle {
+  padding: 8px 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 6px;
+  background: #444;
+  color: #fff;
+  cursor: pointer;
+}
+
+body.dark #modeToggle {
+  background: #ddd;
+  color: #000;
+}
+
 .delBtn {
   margin-top: 10px;
   background: #c33;
