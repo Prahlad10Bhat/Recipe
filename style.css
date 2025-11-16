@@ -1,93 +1,120 @@
+/* Base */
 body {
   font-family: Arial, sans-serif;
-  margin: 0;
-  background: #f7f7f7;
+  margin: 20px;
+  background: #f5f5f5;
   color: #222;
+  transition: background 0.2s, color 0.2s;
 }
 
-header {
-  padding: 20px;
-  background: #fff;
-  border-bottom: 1px solid #ddd;
-  text-align: center;
-}
-
-#search {
-  width: 90%;
-  max-width: 400px;
-  padding: 10px;
-  margin-top: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-}
-
-#list {
-  padding: 20px;
-}
-
-.recipe {
-  background: #fff;
-  padding: 15px;
-  margin-bottom: 15px;
-  border-radius: 6px;
-  border: 1px solid #ddd;
-}
-
-#addBox {
-  background: #fff;
-  padding: 20px;
-  border-top: 1px solid #ddd;
-}
-
-#addBox input, #addBox textarea {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-button {
-  padding: 10px 16px;
-  border: none;
-  background: #333;
-  color: #fff;
-  border-radius: 6px;
-  cursor: pointer;
-}
-body.dark {
-  background: #111;
+.dark {
+  background: #121212;
   color: #eee;
 }
 
-body.dark header,
-body.dark #addBox,
-body.dark .recipe {
-  background: #1a1a1a;
-  border-color: #333;
+h1, h2 {
+  margin-bottom: 10px;
 }
 
-#modeToggle {
-  padding: 8px 12px;
-  margin-top: 10px;
-  border: none;
+/* Search + Theme */
+.top-bar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #aaa;
   border-radius: 6px;
-  background: #444;
-  color: #fff;
-  cursor: pointer;
-}
-
-body.dark #modeToggle {
-  background: #ddd;
+  font-size: 15px;
+  background: #fff;
   color: #000;
 }
 
-.delBtn {
-  margin-top: 10px;
-  background: #c33;
+.dark input,
+.dark textarea {
+  background: #1e1e1e;
+  color: #eee;
+  border: 1px solid #555;
 }
-.recipeImg {
-  width: 100%;
-  margin-top: 10px;
+
+/* Add section */
+#add-section {
+  margin-bottom: 40px;
+  max-width: 600px;
+}
+
+#photo {
+  margin: 10px 0;
+}
+
+button {
+  padding: 8px 16px;
+  background: #444;
+  color: white;
+  border: none;
   border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+button:hover {
+  background: #333;
+}
+
+/* Recipe cards */
+.recipe {
+  border: 1px solid #ccc;
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  background: #fff;
+}
+
+.dark .recipe {
+  background: #1e1e1e;
+  border: 1px solid #555;
+}
+
+.recipe h3 {
+  margin: 0 0 10px 0;
+}
+
+.recipe img {
+  max-width: 100%;
+  margin: 10px 0;
+  border-radius: 8px;
+}
+
+.recipe button {
+  background: #d9534f;
+}
+
+.recipe button:hover {
+  background: #c14440;
+}
+
+/* Steps section */
+.steps-row {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+#stepText {
+  flex: 1;
+}
+
+#stepPhoto {
+  flex: 1;
+}
+
+#stepsPreview img {
+  max-width: 150px;
+  border-radius: 6px;
+  margin-top: 10px;
 }
