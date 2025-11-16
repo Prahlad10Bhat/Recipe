@@ -1,68 +1,20 @@
-const list = document.getElementById("list");
-const search = document.getElementById("search");
-const addBtn = document.getElementById("addBtn");
-const photoInput = document.getElementById("photo");
-
 let recipes = JSON.parse(localStorage.getItem("recipes") || "[]");
 
-// dark mode
+const list = document.getElementById("list");
+const addBtn = document.getElementById("addBtn");
+const titleInput = document.getElementById("title");
+const stepsInput = document.getElementById("steps");
+const photoInput = document.getElementById("photo");
+const search = document.getElementById("search");
 const modeToggle = document.getElementById("modeToggle");
-let mode = localStorage.getItem("mode") || "light";
 
-if (mode === "dark") document.body.classList.add("dark");
-updateModeBtn();
+// Load recipes on start
+render();
 
-function updateModeBtn() {
-  modeToggle.textContent = mode === "dark" ? "Light" : "Dark";
-}
-
-modeToggle.onclick = () => {
-  mode = mode === "dark" ? "light" : "dark";
-  localStorage.setItem("mode", mode);
-
-  if (mode === "dark") document.body.classList.add("dark");
-  else document.body.classList.remove("dark");
-
-  updateModeBtn();
-};
-
-// save
-function save() {
-  localStorage.setItem("recipes", JSON.stringify(recipes));
-}
-
-// show
-function render(items = recipes) {
-  list.innerHTML = "";
-  items.forEach((r, i) => {
-    let box = document.createElement("div");
-    box.className = "recipe";
-
-    let imgTag = r.photo ? `<img src="${r.photo}" class="recipeImg" />` : "";
-
-    box.innerHTML = `
-      <h3>${r.title}</h3>
-      <p>${r.steps}</p>
-      ${imgTag}
-      <button class="delBtn" data-id="${i}">Delete</button>
-    `;
-    list.appendChild(box);
-  });
-
-  document.querySelectorAll(".delBtn").forEach(btn => {
-    btn.onclick = () => {
-      const id = btn.getAttribute("data-id");
-      recipes.splice(id, 1);
-      save();
-      render();
-    };
-  });
-}
-
-// add recipe
+// Add recipe
 addBtn.onclick = () => {
-  const title = document.getElementById("title").value.trim();
-  const steps = document.getElementById("steps").value.trim();
+  const title = titleInput.value.trim();
+  const steps = stepsInput.value.trim();
 
   if (!title) return;
 
@@ -71,36 +23,62 @@ addBtn.onclick = () => {
   if (file) {
     const reader = new FileReader();
     reader.onload = () => {
-      recipes.push({
-        title,
-        steps,
-        photo: reader.result
-      });
-      save();
-      render();
+      saveRecipe(title, steps, reader.result);
     };
     reader.readAsDataURL(file);
   } else {
-    recipes.push({
-      title,
-      steps,
-      photo: null
-    });
-    save();
-    render();
+    saveRecipe(title, steps, null);
   }
+};
 
-  document.getElementById("title").value = "";
-  document.getElementById("steps").value = "";
+function saveRecipe(title, steps, imgData) {
+  recipes.push({ title, steps, img: imgData });
+  localStorage.setItem("recipes", JSON.stringify(recipes));
+
+  titleInput.value = "";
+  stepsInput.value = "";
   photoInput.value = "";
-};
 
-// search
-search.oninput = () => {
-  const q = search.value.toLowerCase();
-  const filtered = recipes.filter(r => r.title.toLowerCase().includes(q));
-  render(filtered);
-};
+  render();
+}
 
-// load
-render();
+// Render recipe list
+function render() {
+  list.innerHTML = "";
+
+  recipes
+    .filter(r => r.title.toLowerCase().includes(search.value.toLowerCase()))
+    .forEach((recipe, index) => {
+      const div = document.createElement("div");
+      div.className = "card";
+
+      div.innerHTML = `
+        <h3>${recipe.title}</h3>
+        <p>${recipe.steps}</p>
+        ${
+          recipe.img
+            ? `<img src="${recipe.img}" style="max-width:200px; margin-top:10px; border-radius:8px;" />`
+            : ""
+        }
+        <button class="deleteBtn">Delete</button>
+      `;
+
+      div.querySelector(".deleteBtn").onclick = () => {
+        recipes.splice(index, 1);
+        localStorage.setItem("recipes", JSON.stringify(recipes));
+        render();
+      };
+
+      list.appendChild(div);
+    });
+}
+
+// Search
+search.oninput = render;
+
+// Dark mode toggle
+modeToggle.onclick = () => {
+  const body = document.body;
+  const isDark = body.classList.toggle("lightMode");
+  modeToggle.textContent = isDark ? "Dark" : "Light";
+};
