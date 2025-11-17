@@ -228,3 +228,7 @@ body.lightMode .deleteBtn {
   max-height: 90vh;
   border-radius: 12px;
 }
+.card:active {
+  opacity: 0.7;
+  transition: 0.2s;
+}
