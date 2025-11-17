@@ -1,112 +1,141 @@
 let recipes = JSON.parse(localStorage.getItem("recipes") || "[]");
 
-const list = document.getElementById("list");
-const addBtn = document.getElementById("addBtn");
-const titleInput = document.getElementById("title");
-const stepsInput = document.getElementById("steps");
-const photoInput = document.getElementById("photo");
-const search = document.getElementById("search");
-const modeToggle = document.getElementById("modeToggle");
+const titleInput = document.getElementById("titleInput");
+const stepsInput = document.getElementById("stepsInput");
+const stepImageInput = document.getElementById("stepImageInput");
+const recipesDiv = document.getElementById("recipes");
+const searchInput = document.getElementById("searchInput");
+const clearSearch = document.getElementById("clearSearch");
+const suggestions = document.getElementById("suggestions");
 
-render();
+// Render recipes
+function render(list = recipes) {
+  recipesDiv.innerHTML = "";
 
-addBtn.onclick = () => {
+  list.forEach((r, i) => {
+    const card = document.createElement("div");
+    card.className = "recipe-card";
+
+    const title = document.createElement("h2");
+    title.textContent = r.title;
+
+    const steps = document.createElement("p");
+    steps.innerHTML = r.steps.replace(/\n/g, "<br>");
+
+    card.appendChild(title);
+    card.appendChild(steps);
+
+    if (r.image) {
+      const img = document.createElement("img");
+      img.src = r.image;
+
+      img.onclick = () => {
+        const pop = document.createElement("div");
+        pop.style.position = "fixed";
+        pop.style.top = 0;
+        pop.style.left = 0;
+        pop.style.width = "100%";
+        pop.style.height = "100%";
+        pop.style.background = "rgba(0,0,0,0.8)";
+        pop.style.display = "flex";
+        pop.style.justifyContent = "center";
+        pop.style.alignItems = "center";
+
+        const big = document.createElement("img");
+        big.src = r.image;
+        big.style.maxWidth = "90%";
+        big.style.maxHeight = "90%";
+        big.style.borderRadius = "10px";
+
+        pop.appendChild(big);
+        pop.onclick = () => pop.remove();
+        document.body.appendChild(pop);
+      };
+
+      card.appendChild(img);
+    }
+
+    const delBtn = document.createElement("button");
+    delBtn.className = "delete-btn";
+    delBtn.textContent = "Delete";
+    delBtn.onclick = () => {
+      recipes.splice(i, 1);
+      localStorage.setItem("recipes", JSON.stringify(recipes));
+      render();
+    };
+
+    card.appendChild(delBtn);
+    recipesDiv.appendChild(card);
+  });
+}
+
+// Add recipe
+document.getElementById("addRecipe").onclick = () => {
   const title = titleInput.value.trim();
   const steps = stepsInput.value.trim();
 
   if (!title) return;
 
-  const file = photoInput.files[0];
-
-  if (file) {
+  if (stepImageInput.files.length > 0) {
     const reader = new FileReader();
     reader.onload = () => {
       saveRecipe(title, steps, reader.result);
     };
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(stepImageInput.files[0]);
   } else {
     saveRecipe(title, steps, null);
   }
 };
 
-function saveRecipe(title, steps, imgData) {
-  recipes.push({ title, steps, img: imgData });
+function saveRecipe(title, steps, img) {
+  recipes.push({ title, steps, image: img });
   localStorage.setItem("recipes", JSON.stringify(recipes));
-
   titleInput.value = "";
   stepsInput.value = "";
-  photoInput.value = "";
-
+  stepImageInput.value = "";
   render();
 }
 
-function render() {
-  list.innerHTML = "";
+// Search bar suggestions
+searchInput.addEventListener("input", () => {
+  const q = searchInput.value.toLowerCase();
 
-  recipes
-    .filter(r => r.title.toLowerCase().includes(search.value.toLowerCase()))
-    .forEach((recipe) => {
-      const div = document.createElement("div");
-      div.className = "card";
+  if (!q) {
+    suggestions.style.display = "none";
+    render();
+    return;
+  }
 
-      const safeTitle = recipe.title;
-      const safeSteps = recipe.steps.replace(/\n/g, "<br>");
+  const matches = recipes.filter(r => r.title.toLowerCase().includes(q));
 
-      div.innerHTML = `
-        <h3>${safeTitle}</h3>
-        <p>${safeSteps}</p>
-        ${
-          recipe.img
-            ? `<img class="recipeImg" src="${recipe.img}" style="max-width:200px; margin-top:10px; border-radius:8px; cursor:pointer;" />`
-            : ""
-        }
-      `;
+  suggestions.innerHTML = "";
+  matches.forEach(r => {
+    const li = document.createElement("li");
+    li.textContent = r.title;
+    li.onclick = () => {
+      searchInput.value = r.title;
+      suggestions.style.display = "none";
+      render([r]);
+    };
+    suggestions.appendChild(li);
+  });
 
-      list.appendChild(div);
-    });
-}
+  suggestions.style.display = matches.length ? "block" : "none";
 
-search.oninput = render;
+  render(matches);
+});
 
-modeToggle.onclick = () => {
-  const body = document.body;
-  const isDark = body.classList.toggle("lightMode");
-  modeToggle.textContent = isDark ? "Dark" : "Light";
+// Clear search
+clearSearch.onclick = () => {
+  searchInput.value = "";
+  suggestions.style.display = "none";
+  render();
 };
 
-// Image viewer
-const viewer = document.getElementById("imgViewer");
-const viewerImg = document.getElementById("viewerImg");
+// Theme toggle
+document.getElementById("themeToggle").onclick = () => {
+  document.body.classList.toggle("dark");
+};
 
-document.addEventListener("click", e => {
-  if (e.target.classList.contains("recipeImg")) {
-    viewerImg.src = e.target.src;
-    viewer.style.display = "flex";
-  }
-
-  if (e.target === viewer) {
-    viewer.style.display = "none";
-  }
-});
-
-// Long press delete
-let pressTimer = null;
-
-document.addEventListener("mousedown", e => {
-  const card = e.target.closest(".card");
-  if (!card) return;
-
-  pressTimer = setTimeout(() => {
-    const index = [...list.children].indexOf(card);
-
-    const ok = confirm("Delete this recipe?");
-    if (ok) {
-      recipes.splice(index, 1);
-      localStorage.setItem("recipes", JSON.stringify(recipes));
-      render();
-    }
-  }, 600);
-});
-
-document.addEventListener("mouseup", () => clearTimeout(pressTimer));
-document.addEventListener("mouseleave", () => clearTimeout(pressTimer));
+// First render
+render();
