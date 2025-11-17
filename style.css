@@ -1,93 +1,105 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #111;
-  color: #eee;
-  margin: 20px;
+  font-family: Arial;
+  margin: 0;
+  padding: 20px;
+  background: var(--bg);
+  color: var(--text);
 }
 
-.lightMode {
-  background: #fff;
-  color: #222;
+:root {
+  --bg: #fff;
+  --text: #000;
+  --card: #f3f3f3;
 }
 
-h1, h2 {
-  margin-bottom: 10px;
+.dark {
+  --bg: #121212;
+  --text: #fff;
+  --card: #1f1f1f;
 }
 
-.topBar {
+header {
   display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-input, textarea, button {
+.search-box {
+  position: relative;
   width: 100%;
-  padding: 10px;
+  max-width: 400px;
+  margin: 20px 0;
+}
+
+#searchInput {
+  width: 100%;
+  padding: 10px 35px 10px 10px;
   border-radius: 6px;
-  border: 1px solid #555;
-  background: #222;
-  color: #eee;
+  border: 1px solid #999;
 }
 
-.lightMode input,
-.lightMode textarea,
-.lightMode button {
-  background: #f3f3f3;
-  color: #222;
-  border: 1px solid #aaa;
+#clearSearch {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  padding: 6px 10px;
+  border: none;
+  background: #888;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+#suggestions {
+  list-style: none;
+  padding: 0;
+  margin: 2px 0 0 0;
+  background: var(--card);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #777;
+  display: none;
 }
 
-#list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+#suggestions li {
+  padding: 8px 10px;
+  cursor: pointer;
 }
 
-.card {
+#suggestions li:hover {
+  background: #ccc;
+}
+
+#recipeForm {
+  margin-bottom: 20px;
+  max-width: 500px;
+}
+
+#recipes {
+  margin-top: 20px;
+}
+
+.recipe-card {
+  background: var(--card);
   padding: 15px;
   border-radius: 10px;
-  background: #1b1b1b;
-  border: 1px solid #333;
+  margin-bottom: 15px;
+  position: relative;
 }
 
-.lightMode .card {
-  background: #f8f8f8;
-  border: 1px solid #ccc;
+.recipe-card img {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 10px;
 }
 
-.card img {
-  display: block;
-}
-
-/* Long press visual feedback */
-.card:active {
-  opacity: 0.7;
-  transition: 0.2s;
-}
-
-/* Image viewer */
-.viewer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0,0,0,0.8);
-  backdrop-filter: blur(4px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 2000;
-}
-
-.viewer img {
-  max-width: 90vw;
-  max-height: 90vh;
-  border-radius: 12px;
+.delete-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: red;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
 }
