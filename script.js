@@ -54,7 +54,7 @@ function render() {
 
       div.innerHTML = `
         <h3>${recipe.title}</h3>
-        <p>${recipe.steps}</p>
+        <p>${recipe.steps.replace(/\n/g, "<br>")}</p>
         ${
           recipe.img
             ? `<img class="recipeImg" src="${recipe.img}" style="max-width:200px; margin-top:10px; border-radius:8px; cursor:pointer;" />`
