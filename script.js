@@ -117,4 +117,29 @@ document.addEventListener("click", e => {
   } else if (e.target === viewer) {
     viewer.style.display = "none";
   }
+let pressTimer = null;
+
+document.addEventListener("mousedown", e => {
+  const card = e.target.closest(".card");
+  if (!card) return;
+
+  pressTimer = setTimeout(() => {
+    const index = [...list.children].indexOf(card);
+
+    const ok = confirm("Delete this recipe?");
+    if (ok) {
+      recipes.splice(index, 1);
+      localStorage.setItem("recipes", JSON.stringify(recipes));
+      render();
+    }
+  }, 600);
 });
+
+document.addEventListener("mouseup", () => {
+  clearTimeout(pressTimer);
+});
+
+document.addEventListener("mouseleave", () => {
+  clearTimeout(pressTimer);
+});
+
