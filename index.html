@@ -4,36 +4,39 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Recipes</title>
-  <link rel="stylesheet" href="style.css?v=3" />
+  <link rel="stylesheet" href="style.css?v=5" />
 </head>
 
 <body>
-  <header>
-    <h1>My Recipes</h1>
-    <button id="themeToggle">Toggle Mode</button>
-  </header>
+  <div class="container">
 
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Search recipes..." autocomplete="off">
-    <button id="clearSearch">X</button>
-    <ul id="suggestions"></ul>
+    <header>
+      <h1>My Recipes</h1>
+      <button id="themeToggle">Toggle Mode</button>
+    </header>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search recipes..." autocomplete="off">
+      <button id="clearSearch">X</button>
+      <ul id="suggestions"></ul>
+    </div>
+
+    <div id="recipeForm">
+      <input id="titleInput" placeholder="Recipe title">
+      <textarea id="stepsInput" placeholder="Steps (Shift+Enter for next line)"></textarea>
+
+      <label class="fileLabel">
+        Add step image
+        <input type="file" id="stepImageInput" accept="image/*">
+      </label>
+
+      <button id="addRecipe">Add Recipe</button>
+    </div>
+
+    <div id="recipes"></div>
+
   </div>
 
-  <div id="recipeForm">
-    <input id="titleInput" placeholder="Recipe title">
-
-    <textarea id="stepsInput" placeholder="Steps (Shift+Enter for next line)"></textarea>
-
-    <label class="fileLabel">
-      Add step image
-      <input type="file" id="stepImageInput" accept="image/*">
-    </label>
-
-    <button id="addRecipe">Add Recipe</button>
-  </div>
-
-  <div id="recipes"></div>
-
-  <script src="script.js?v=3"></script>
+  <script src="script.js?v=5"></script>
 </body>
 </html>
