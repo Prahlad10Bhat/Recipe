@@ -31,6 +31,17 @@ body {
   --border: #2c2c2c;
 }
 
+/* GLOBAL BUTTON STYLE */
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.15s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
 /* HEADER */
 header {
   display: flex;
@@ -44,13 +55,14 @@ h1 {
   font-size: 30px;
 }
 
+/* THEME BUTTON */
 #themeToggle {
-  padding: 7px 12px;
-  border: none;
-  background: #444;
+  background: #555;
   color: white;
-  border-radius: 6px;
-  cursor: pointer;
+}
+
+#themeToggle:hover {
+  background: #444;
 }
 
 /* SEARCH */
@@ -69,16 +81,19 @@ h1 {
   box-sizing: border-box;
 }
 
+/* CLEAR SEARCH BUTTON */
 #clearSearch {
   position: absolute;
   right: 10px;
   top: 7px;
-  padding: 5px 9px;
-  background: #777;
+  padding: 7px 9px;
+  background: #999;
   color: white;
-  border: none;
   border-radius: 6px;
-  cursor: pointer;
+}
+
+#clearSearch:hover {
+  background: #777;
 }
 
 /* SUGGESTIONS */
@@ -133,6 +148,7 @@ textarea {
   resize: vertical;
 }
 
+/* FILE INPUT */
 .fileLabel {
   padding: 10px;
   background: var(--bg);
@@ -145,14 +161,14 @@ textarea {
   display: none;
 }
 
+/* ADD RECIPE BUTTON */
 #addRecipe {
-  padding: 12px;
-  background: #4caf50;
+  background: #34a853;
   color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 15px;
+}
+
+#addRecipe:hover {
+  background: #2d8e45;
 }
 
 /* RECIPES */
@@ -181,7 +197,7 @@ textarea {
   margin-top: 12px;
 }
 
-/* POPUP IMAGE */
+/* BIG IMAGE POPUP */
 .big-image {
   position: fixed;
   top: 0;
@@ -201,7 +217,7 @@ textarea {
   border-radius: 14px;
 }
 
-/* MOBILE FIX */
+/* MOBILE */
 @media (max-width: 500px) {
   body {
     padding: 12px 0;
