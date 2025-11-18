@@ -8,7 +8,7 @@ const searchInput = document.getElementById("searchInput");
 const clearSearch = document.getElementById("clearSearch");
 const suggestions = document.getElementById("suggestions");
 
-// Render recipes
+/* RENDER */
 function render(list = recipes) {
   recipesDiv.innerHTML = "";
 
@@ -29,66 +29,66 @@ function render(list = recipes) {
       const img = document.createElement("img");
       img.src = r.image;
 
-      img.onclick = () => {
-        const pop = document.createElement("div");
-        pop.style.position = "fixed";
-        pop.style.top = 0;
-        pop.style.left = 0;
-        pop.style.width = "100%";
-        pop.style.height = "100%";
-        pop.style.background = "rgba(0,0,0,0.8)";
-        pop.style.display = "flex";
-        pop.style.justifyContent = "center";
-        pop.style.alignItems = "center";
-
-        const big = document.createElement("img");
-        big.src = r.image;
-        big.style.maxWidth = "90%";
-        big.style.maxHeight = "90%";
-        big.style.borderRadius = "10px";
-
-        pop.appendChild(big);
-        pop.onclick = () => pop.remove();
-        document.body.appendChild(pop);
+      img.onclick = (e) => {
+        e.stopPropagation();
+        showBigImage(r.image);
       };
 
       card.appendChild(img);
     }
 
-    const delBtn = document.createElement("button");
-    delBtn.className = "delete-btn";
-    delBtn.textContent = "Delete";
-    delBtn.onclick = () => {
-      recipes.splice(i, 1);
-      localStorage.setItem("recipes", JSON.stringify(recipes));
-      render();
-    };
+    // LONG PRESS DELETE
+    let timer = null;
 
-    card.appendChild(delBtn);
+    card.addEventListener("mousedown", () => {
+      timer = setTimeout(() => {
+        const ok = confirm("Delete this recipe?");
+        if (ok) {
+          recipes.splice(i, 1);
+          localStorage.setItem("recipes", JSON.stringify(recipes));
+          render();
+        }
+      }, 600);
+    });
+
+    card.addEventListener("mouseup", () => clearTimeout(timer));
+    card.addEventListener("mouseleave", () => clearTimeout(timer));
+
     recipesDiv.appendChild(card);
   });
 }
 
-// Add recipe
+/* POPUP IMAGE */
+function showBigImage(src) {
+  const pop = document.createElement("div");
+  pop.className = "big-image";
+
+  const img = document.createElement("img");
+  img.src = src;
+
+  pop.appendChild(img);
+  pop.onclick = () => pop.remove();
+
+  document.body.appendChild(pop);
+}
+
+/* ADD RECIPE */
 document.getElementById("addRecipe").onclick = () => {
   const title = titleInput.value.trim();
   const steps = stepsInput.value.trim();
-
   if (!title) return;
 
   if (stepImageInput.files.length > 0) {
     const reader = new FileReader();
-    reader.onload = () => {
-      saveRecipe(title, steps, reader.result);
-    };
+    reader.onload = () => saveRecipe(title, steps, reader.result);
     reader.readAsDataURL(stepImageInput.files[0]);
   } else {
     saveRecipe(title, steps, null);
   }
 };
 
-function saveRecipe(title, steps, img) {
-  recipes.push({ title, steps, image: img });
+function saveRecipe(title, steps, image) {
+  recipes.push({ title, steps, image });
   localStorage.setItem("recipes", JSON.stringify(recipes));
   titleInput.value = "";
   stepsInput.value = "";
@@ -96,7 +96,7 @@ function saveRecipe(title, steps, img) {
   render();
 }
 
-// Search bar suggestions
+/* SEARCH + SUGGESTIONS */
 searchInput.addEventListener("input", () => {
   const q = searchInput.value.toLowerCase();
 
@@ -121,21 +121,20 @@ searchInput.addEventListener("input", () => {
   });
 
   suggestions.style.display = matches.length ? "block" : "none";
-
   render(matches);
 });
 
-// Clear search
+/* CLEAR SEARCH */
 clearSearch.onclick = () => {
   searchInput.value = "";
   suggestions.style.display = "none";
   render();
 };
 
-// Theme toggle
+/* THEME TOGGLE */
 document.getElementById("themeToggle").onclick = () => {
   document.body.classList.toggle("dark");
 };
 
-// First render
+/* FIRST LOAD */
 render();
