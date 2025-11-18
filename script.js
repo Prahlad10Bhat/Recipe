@@ -25,7 +25,6 @@ function render(list = recipes) {
     card.appendChild(title);
     card.appendChild(steps);
 
-    // IMAGE
     if (r.image) {
       const img = document.createElement("img");
       img.src = r.image;
@@ -137,5 +136,5 @@ document.getElementById("themeToggle").onclick = () => {
   document.body.classList.toggle("dark");
 };
 
-/* FIRST LOAD */
+/* INITIAL LOAD */
 render();
