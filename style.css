@@ -1,128 +1,143 @@
+/* BASE */
 body {
-  font-family: Arial;
-  margin: 0;
-  padding: 20px;
+  font-family: Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
+  margin: 0;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
+/* THEME */
 :root {
-  --bg: #fff;
-  --text: #000;
-  --card: #f3f3f3;
+  --bg: #ffffff;
+  --text: #111;
+  --card: #f4f4f4;
+  --border: #dcdcdc;
 }
 
 .dark {
   --bg: #121212;
   --text: #fff;
-  --card: #1f1f1f;
+  --card: #1e1e1e;
+  --border: #2c2c2c;
 }
 
+/* HEADER */
 header {
+  width: 100%;
+  max-width: 600px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  padding-right: 20px; /* adds breathing room */
+  margin-bottom: 25px;
 }
 
-
-header h1 {
+h1 {
   margin: 0;
+  font-size: 32px;
 }
 
 #themeToggle {
   padding: 8px 14px;
   border: none;
-  border-radius: 6px;
   background: #444;
   color: white;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-/* SEARCH BOX */
+/* SEARCH */
 .search-box {
   position: relative;
   width: 100%;
-  max-width: 450px;
-  margin: 0 0 25px 0;
+  max-width: 600px;
+  margin-bottom: 25px;
 }
 
 #searchInput {
   width: 100%;
-  padding: 10px 40px 10px 10px;
-  border-radius: 6px;
-  border: 1px solid #aaa;
+  padding: 12px 40px 12px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card);
   font-size: 15px;
 }
 
 #clearSearch {
   position: absolute;
-  right: 8px;
-  top: 7px;
+  right: 10px;
+  top: 8px;
   padding: 5px 9px;
-  border: none;
   background: #888;
   color: white;
-  border-radius: 4px;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 13px;
 }
 
-/* SUGGESTIONS */
+/* SUGGESTIONS BOX */
 #suggestions {
-  list-style: none;
-  padding: 0;
-  margin: 4px 0 0 0;
-  background: var(--card);
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid #777;
-  display: none;
   position: absolute;
+  top: 105%;
   width: 100%;
-  z-index: 10;
+  background: var(--card);
+  list-style: none;
+  margin: 4px 0 0 0;
+  padding: 0;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  display: none;
+  overflow: hidden;
+  z-index: 20;
 }
 
 #suggestions li {
   padding: 10px;
   cursor: pointer;
-  font-size: 15px;
 }
 
 #suggestions li:hover {
-  background: rgba(0,0,0,0.15);
+  background: rgba(0,0,0,0.1);
 }
 
 /* FORM */
 #recipeForm {
-  margin-bottom: 25px;
-  max-width: 500px;
+  width: 100%;
+  max-width: 600px;
+  background: var(--card);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   gap: 12px;
+  margin-bottom: 25px;
 }
 
 #recipeForm input,
 #recipeForm textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #aaa;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
   font-size: 15px;
 }
 
 textarea {
+  min-height: 90px;
   resize: vertical;
-  min-height: 80px;
 }
 
 .fileLabel {
-  background: var(--card);
   padding: 10px;
-  border-radius: 6px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
   cursor: pointer;
-  border: 1px solid #aaa;
 }
 
 .fileLabel input {
@@ -130,38 +145,36 @@ textarea {
 }
 
 #addRecipe {
-  padding: 10px;
-  border: none;
+  padding: 12px;
   background: #4caf50;
   color: white;
-  border-radius: 6px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
   cursor: pointer;
-  font-size: 15px;
 }
 
-/* RECIPE CARDS */
+/* RECIPES LIST */
 #recipes {
-  margin-top: 20px;
+  width: 100%;
+  max-width: 600px;
 }
 
 .recipe-card {
   background: var(--card);
-  padding: 15px;
+  padding: 18px;
   border-radius: 10px;
-  margin-bottom: 18px;
+  border: 1px solid var(--border);
+  margin-bottom: 25px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 .recipe-card h2 {
   margin: 0 0 10px 0;
 }
 
-.recipe-card p {
-  white-space: pre-line;
-  margin: 0;
-}
-
 .recipe-card img {
-  width: 50%;
+  width: 100%;
   border-radius: 10px;
   margin-top: 12px;
 }
@@ -169,12 +182,12 @@ textarea {
 /* DELETE BUTTON */
 .delete-btn {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
+  margin-top: 15px;
+  background: #ff3b3b;
   border: none;
-  background: red;
   color: white;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-top: 12px;
   font-size: 15px;
 }
