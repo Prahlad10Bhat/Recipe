@@ -8,6 +8,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* THEME */
@@ -29,10 +33,12 @@ body {
 header {
   width: 100%;
   max-width: 600px;
+  padding: 0 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 25px;
+  box-sizing: border-box;
 }
 
 h1 {
@@ -54,7 +60,9 @@ h1 {
   position: relative;
   width: 100%;
   max-width: 600px;
+  padding: 0 10px;
   margin-bottom: 25px;
+  box-sizing: border-box;
 }
 
 #searchInput {
@@ -68,8 +76,8 @@ h1 {
 
 #clearSearch {
   position: absolute;
-  right: 10px;
-  top: 7px;
+  right: 18px;
+  top: 8px;
   padding: 5px 9px;
   background: #888;
   color: white;
@@ -82,7 +90,8 @@ h1 {
 #suggestions {
   position: absolute;
   top: 105%;
-  width: 100%;
+  left: 10px;
+  right: 10px;
   background: var(--card);
   list-style: none;
   margin: 4px 0 0 0;
@@ -108,14 +117,15 @@ h1 {
 #recipeForm {
   width: 100%;
   max-width: 600px;
+  padding: 15px 10px;
   background: var(--card);
-  padding: 15px;
   border-radius: 10px;
   border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
   gap: 12px;
   margin-bottom: 25px;
+  box-sizing: border-box;
 }
 
 #recipeForm input,
@@ -155,10 +165,12 @@ textarea {
   cursor: pointer;
 }
 
-/* RECIPES LIST */
+/* RECIPES */
 #recipes {
   width: 100%;
   max-width: 600px;
+  padding: 0 10px;
+  box-sizing: border-box;
 }
 
 .recipe-card {
@@ -186,7 +198,7 @@ textarea {
   margin-top: 12px;
 }
 
-/* IMAGE POPUP */
+/* POPUP IMAGE */
 .big-image {
   position: fixed;
   top: 0;
@@ -204,4 +216,25 @@ textarea {
   max-width: 90%;
   max-height: 90%;
   border-radius: 12px;
+}
+
+/* MOBILE */
+@media (max-width: 500px) {
+  h1 {
+    font-size: 26px;
+  }
+
+  #themeToggle {
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  #addRecipe {
+    font-size: 14px;
+  }
+
+  #searchInput {
+    font-size: 14px;
+    padding: 10px 38px 10px 10px;
+  }
 }
