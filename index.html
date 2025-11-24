@@ -1,42 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Recipes</title>
-  <link rel="stylesheet" href="style.css?v=5" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>My Recipes - Supabase</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
   <div class="container">
-
     <header>
       <h1>My Recipes</h1>
-      <button id="themeToggle">Toggle Mode</button>
+      <div class="header-right">
+        <span id="userEmail" class="muted"></span>
+        <button id="btnLogout" class="hidden">Logout</button>
+      </div>
     </header>
 
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Search recipes..." autocomplete="off">
-      <button id="clearSearch">X</button>
-      <ul id="suggestions"></ul>
-    </div>
+    <section id="authSection">
+      <div class="card">
+        <h2>Sign in / Register</h2>
+        <input id="email" placeholder="Email" type="email" />
+        <input id="password" placeholder="Password" type="password" />
+        <div class="row">
+          <button id="btnSignIn">Sign in</button>
+          <button id="btnSignUp">Register</button>
+        </div>
+        <p class="muted">Or sign in with a magic link (email)</p>
+        <button id="btnMagic">Send magic link</button>
+      </div>
+    </section>
 
-    <div id="recipeForm">
-      <input id="titleInput" placeholder="Recipe title">
-      <textarea id="stepsInput" placeholder="Steps (Shift+Enter for next line)"></textarea>
+    <section id="appSection" class="hidden">
+      <div class="search-box">
+        <input id="searchInput" placeholder="Search recipes..." autocomplete="off" />
+        <button id="clearSearch">X</button>
+        <ul id="suggestions"></ul>
+      </div>
 
-      <label class="fileLabel">
-        Add step image
-        <input type="file" id="stepImageInput" accept="image/*">
-      </label>
+      <div id="recipeForm" class="card">
+        <input id="titleInput" placeholder="Recipe title" />
+        <textarea id="stepsInput" placeholder="Steps (Shift+Enter for next line)"></textarea>
 
-      <button id="addRecipe">Add Recipe</button>
-    </div>
+        <label class="fileLabel">Add step image
+          <input id="stepImageInput" type="file" accept="image/*" />
+        </label>
 
-    <div id="recipes"></div>
+        <div class="row">
+          <button id="addRecipe">Add Recipe</button>
+          <button id="viewFeed">View Shared Feed</button>
+        </div>
+      </div>
 
+      <div id="recipes"></div>
+    </section>
   </div>
 
-  <script src="script.js?v=5"></script>
+  <!-- Supabase client CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="script.js"></script>
 </body>
 </html>
