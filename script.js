@@ -2,8 +2,7 @@
 const SUPABASE_URL = "https://pkxatfmzbcchlfiitten.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBreGF0Zm16YmNjaGxmaWl0dGVuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM5ODE5MjAsImV4cCI6MjA3OTU1NzkyMH0.7CktwxVO2oKrtrbXatmPKVNpSE35ugBOvX9LFLuJdrE"; // <-- replace this with your anon key
 
-const supabase = supabaseLib.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 // DOM refs
 const authSection = document.getElementById("authSection");
 const appSection = document.getElementById("appSection");
