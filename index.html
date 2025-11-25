@@ -6,31 +6,40 @@
   <title>My Recipes - Supabase</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <div class="container">
+    
     <header>
       <h1>My Recipes</h1>
+
       <div class="header-right">
         <span id="userEmail" class="muted"></span>
         <button id="btnLogout" class="hidden">Logout</button>
       </div>
     </header>
 
+    <!-- AUTH SECTION -->
     <section id="authSection">
       <div class="card">
         <h2>Sign in / Register</h2>
-        <input id="email" placeholder="Email" type="email" />
-        <input id="password" placeholder="Password" type="password" />
+
+        <input id="email" type="email" placeholder="Email" />
+        <input id="password" type="password" placeholder="Password" />
+
         <div class="row">
           <button id="btnSignIn">Sign in</button>
           <button id="btnSignUp">Register</button>
         </div>
-        <p class="muted">Or sign in with a magic link (email)</p>
+
+        <p class="muted">Or sign in with a magic link</p>
         <button id="btnMagic">Send magic link</button>
       </div>
     </section>
 
+    <!-- APP SECTION -->
     <section id="appSection" class="hidden">
+
       <div class="search-box">
         <input id="searchInput" placeholder="Search recipes..." autocomplete="off" />
         <button id="clearSearch">X</button>
@@ -39,6 +48,7 @@
 
       <div id="recipeForm" class="card">
         <input id="titleInput" placeholder="Recipe title" />
+
         <textarea id="stepsInput" placeholder="Steps (Shift+Enter for next line)"></textarea>
 
         <label class="fileLabel">Add step image
@@ -53,9 +63,9 @@
 
       <div id="recipes"></div>
     </section>
+
   </div>
 
-  <!-- Supabase client CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
 </body>
