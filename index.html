@@ -1,71 +1,89 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>My Recipes - Supabase</title>
+  <title>Chef — My Recipes</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
-  <div class="container">
-    
-    <header>
-      <h1>My Recipes</h1>
 
-      <div class="header-right">
-        <span id="userEmail" class="muted"></span>
-        <button id="btnLogout" class="hidden">Logout</button>
+  <!-- LOGIN / APP CONTAINER -->
+  <div class="page">
+
+    <!-- Login screen -->
+    <main id="loginScreen" class="login-screen">
+      <div class="login-top">
+        <button id="themeToggle" class="toggle-btn" aria-label="Toggle theme"></button>
+        <div class="logo">chef</div>
+        <div class="profile-placeholder"></div>
+      </div>
+
+      <div class="login-center">
+        <div class="avatar-ghost"></div>
+        <p class="login-line" id="loginLine">Sign in so your recipes stay with you, no matter what device you're on.</p>
+
+        <div class="login-form card">
+          <input id="email" type="email" placeholder="enter email" autocomplete="email" />
+          <input id="password" type="password" placeholder="enter password" autocomplete="current-password" />
+          <div class="auth-row">
+            <button id="btnSignIn" class="outline">SIGN IN</button>
+            <button id="btnSignUp" class="outline">SIGN UP</button>
+          </div>
+          <button id="btnMagic" class="ghost">Send magic link</button>
+        </div>
+
+        <p class="desc">
+          A personal recipe app where you can save your own dishes, upload photos, and keep everything synced across devices. Simple, fast, and private.
+        </p>
+      </div>
+    </main>
+
+    <!-- Main app -->
+    <header id="appHeader" class="app-header hidden">
+      <div class="left">
+        <button id="themeToggleApp" class="toggle-btn small" aria-label="Toggle theme"></button>
+        <div class="logo logo-small">chef</div>
+      </div>
+
+      <div class="center">
+        <div class="search-outer">
+          <span class="search-icon">🔍</span>
+          <input id="searchInput" placeholder="Search recipes..." autocomplete="off" />
+          <button id="clearSearch" class="clear-btn">✕</button>
+          <ul id="suggestions" class="suggestions hidden"></ul>
+        </div>
+      </div>
+
+      <div class="right">
+        <button id="profileBtn" class="profile-btn" title="Profile">👤</button>
+        <div id="profileMenu" class="profile-menu hidden">
+          <button id="menuFriends">Friends</button>
+          <button id="menuShared">Shared Feed</button>
+          <button id="menuAccount">Account Settings</button>
+          <button id="btnLogout">Logout</button>
+        </div>
       </div>
     </header>
 
-    <!-- AUTH SECTION -->
-    <section id="authSection">
-      <div class="card">
-        <h2>Sign in / Register</h2>
-
-        <input id="email" type="email" placeholder="Email" />
-        <input id="password" type="password" placeholder="Password" />
-
-        <div class="row">
-          <button id="btnSignIn">Sign in</button>
-          <button id="btnSignUp">Register</button>
+    <main id="appMain" class="app-main hidden">
+      <section class="card add-card">
+        <input id="titleInput" placeholder="enter recipe title" />
+        <textarea id="stepsInput" placeholder="enter recipe (shift+enter for newline)"></textarea>
+        <div class="upload-row">
+          <label class="upload-btn">upload pic
+            <input id="stepImageInput" type="file" accept="image/*" />
+          </label>
+          <button id="addRecipe" class="primary">Add Recipe</button>
         </div>
+      </section>
 
-        <p class="muted">Or sign in with a magic link</p>
-        <button id="btnMagic">Send magic link</button>
-      </div>
-    </section>
-
-    <!-- APP SECTION -->
-    <section id="appSection" class="hidden">
-
-      <div class="search-box">
-        <input id="searchInput" placeholder="Search recipes..." autocomplete="off" />
-        <button id="clearSearch">X</button>
-        <ul id="suggestions"></ul>
-      </div>
-
-      <div id="recipeForm" class="card">
-        <input id="titleInput" placeholder="Recipe title" />
-
-        <textarea id="stepsInput" placeholder="Steps (Shift+Enter for next line)"></textarea>
-
-        <label class="fileLabel">Add step image
-          <input id="stepImageInput" type="file" accept="image/*" />
-        </label>
-
-        <div class="row">
-          <button id="addRecipe">Add Recipe</button>
-          <button id="viewFeed">View Shared Feed</button>
-        </div>
-      </div>
-
-      <div id="recipes"></div>
-    </section>
+      <section id="recipes" class="recipes-list"></section>
+    </main>
 
   </div>
 
+  <!-- Supabase client -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
 </body>
