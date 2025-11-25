@@ -45,33 +45,33 @@
 
     <!-- APP HEADER -->
     <header id="appHeader" class="app-header hidden">
+  <div class="left header-left">
+      <button id="themeToggleApp" class="toggle-btn small" aria-label="Toggle theme"></button>
 
-      <div class="left">
-        <button id="themeToggleApp" class="toggle-btn small"></button>
-        <img src="logo.png" class="logo-img-small" alt="chef logo small" />
-      </div>
+      <!-- Use your uploaded logo -->
+      <img src="logo.png" class="chef-logo" alt="chef logo" />
+  </div>
 
-      <div class="center">
-        <div class="search-outer">
+  <div class="center header-center">
+      <div class="search-outer">
           <span class="search-icon">🔍</span>
           <input id="searchInput" placeholder="Search recipes..." autocomplete="off" />
           <button id="clearSearch" class="clear-btn">✕</button>
           <ul id="suggestions" class="suggestions hidden"></ul>
-        </div>
       </div>
+  </div>
 
-      <div class="right">
-        <button id="profileBtn" class="profile-btn">👤</button>
-
-        <div id="profileMenu" class="profile-menu hidden">
+  <div class="right header-right">
+      <button id="profileBtn" class="profile-btn">👤</button>
+      <div id="profileMenu" class="profile-menu hidden">
           <button id="menuFriends">Friends</button>
           <button id="menuShared">Shared Feed</button>
           <button id="menuAccount">Account Settings</button>
           <button id="btnLogout">Logout</button>
-        </div>
       </div>
+  </div>
+</header>
 
-    </header>
 
     <!-- MAIN APP -->
     <main id="appMain" class="app-main hidden">
