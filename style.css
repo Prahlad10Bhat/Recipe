@@ -74,12 +74,12 @@ body{
 
 /* LOGO */
 .logo-img{
-  height:60px;
+  height:100px;
   object-fit:contain;
 }
 
 .logo-img-small{
-  height:36px;
+  height:50px;
   object-fit:contain;
 }
 
